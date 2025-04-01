@@ -40,3 +40,13 @@ func ExampleFlag_Type() {
 	// Output:
 	//		--size bytes (IEC)   Size in IEC bytes (default 1Mi)
 }
+
+func ExampleFlag_Get() {
+	size := iecbyte.NewFlag(1024 * 1024)
+
+	fmt.Println(size)
+	fmt.Println(size.Get())
+	// Output:
+	// 1Mi
+	// 1048576
+}
