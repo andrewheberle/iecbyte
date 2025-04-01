@@ -5,9 +5,10 @@ This package provides a `Flag` type that can be used as a custom flag for `flag`
 Command line flag values may be as either a plain, non-negative integer or as a positive fixed-point number using one of these quantity suffixes: Ei, Pi, Ti, Gi, Mi, Ki.
 
 For example the following all represent the same value:
-* 2097152
-* 2048Ki
-* 2Mi
+* 2147483648
+* 2097152Ki
+* 2048Mi
+* 2Gi
 
 ## Example
 
