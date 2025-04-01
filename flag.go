@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Flag satisfies the pflag.Value interface
+// Flag satisfies the flag.Value and pflag.Value interfaces
 type Flag struct {
 	n int64
 }
