@@ -25,6 +25,8 @@ var multipliers = []multiplier{
 	{"Ki", 1024},
 }
 
+const flagType = "bytes (IEC)"
+
 // NewFlag is used to initialise a new iecbyte.Flag with a default value
 //
 // A value of n that is < 0 will be set to 0
@@ -46,42 +48,57 @@ func (f Flag) String() string {
 }
 
 func (f *Flag) Set(value string) error {
+	// loop over multipliers and see if the value has the suffix in question
 	for _, m := range multipliers {
 		if strings.HasSuffix(value, m.Suffix) {
+			// trim the suffix and parse the remainder of the string
 			v := strings.TrimSuffix(value, m.Suffix)
-			n, err := strconv.ParseInt(v, 10, 64)
+			n, err := parse(v, m.Value)
 			if err != nil {
 				return err
 			}
 
-			if n < 0 {
-				return fmt.Errorf("cannot be negative")
-			}
-
-			f.n = n * m.Value
+			// set the value of the flag
+			f.n = n
 
 			return nil
 		}
 	}
 
-	n, err := strconv.ParseInt(value, 10, 64)
+	// at this point the string either had no suffix on an unsupported one so parse as-is
+	n, err := parse(value, 1)
 	if err != nil {
 		return err
 	}
 
-	if n < 0 {
-		return fmt.Errorf("cannot be negative")
-	}
-
+	// set the value of the flag
 	f.n = n
 
 	return nil
 }
 
+// Type returns a user facing type for this flag and is required to satisfy the pflag.Value interface
 func (f Flag) Type() string {
-	return "bytes (IEC)"
+	return flagType
 }
 
+// Get returns the value of the Flag as an int64
 func (f Flag) Get() int64 {
 	return f.n
+}
+
+func parse(v string, m int64) (int64, error) {
+	// parse the provided value (v) as an int64
+	n, err := strconv.ParseInt(v, 10, 64)
+	if err != nil {
+		return 0, err
+	}
+
+	// reject negative values
+	if n < 0 {
+		return 0, fmt.Errorf("cannot be negative")
+	}
+
+	// return the value of the parsed int64 multiplied by the multiplier (m)
+	return n * m, nil
 }

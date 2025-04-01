@@ -100,8 +100,8 @@ func TestFlag_Misc(t *testing.T) {
 		}
 	})
 	t.Run("Test Type()", func(t *testing.T) {
-		if f.Type() != "bytes (IEC)" {
-			t.Errorf("NewFlag().Type() = %v, want %v", f.Type(), "bytes (IEC)")
+		if f.Type() != flagType {
+			t.Errorf("NewFlag().Type() = %v, want %v", f.Type(), flagType)
 		}
 	})
 
