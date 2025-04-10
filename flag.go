@@ -8,32 +8,38 @@ import (
 
 // Flag satisfies the flag.Value and pflag.Value interfaces
 type Flag struct {
-	n int64
+	n uint64
 }
 
 type multiplier struct {
 	Suffix string
-	Value  int64
+	Value  uint64
 }
 
+const (
+	_ uint64 = iota
+	Byte
+	Kilobyte = uint64(1 << (10 * (iota - 1)))
+	Megabyte
+	Gigabyte
+	Terabyte
+	Petabyte
+	Exabyte
+)
+
 var multipliers = []multiplier{
-	{"Ei", 1024 * 1024 * 1024 * 1024 * 1024 * 1024},
-	{"Pi", 1024 * 1024 * 1024 * 1024 * 1024},
-	{"Ti", 1024 * 1024 * 1024 * 1024},
-	{"Gi", 1024 * 1024 * 1024},
-	{"Mi", 1024 * 1024},
-	{"Ki", 1024},
+	{"Ei", Exabyte},
+	{"Pi", Petabyte},
+	{"Ti", Terabyte},
+	{"Gi", Gigabyte},
+	{"Mi", Megabyte},
+	{"Ki", Kilobyte},
 }
 
 const flagType = "bytes (IEC)"
 
 // NewFlag is used to initialise a new iecbyte.Flag with a default value
-//
-// A value of n that is < 0 will be set to 0
-func NewFlag(n int64) Flag {
-	if n < 0 {
-		n = 0
-	}
+func NewFlag(n uint64) Flag {
 	return Flag{n}
 }
 
@@ -83,13 +89,13 @@ func (f Flag) Type() string {
 }
 
 // Get returns the value of the Flag as an int64
-func (f Flag) Get() int64 {
+func (f Flag) Get() uint64 {
 	return f.n
 }
 
-func parse(v string, m int64) (int64, error) {
-	// parse the provided value (v) as an int64
-	n, err := strconv.ParseInt(v, 10, 64)
+func parse(v string, m uint64) (uint64, error) {
+	// parse the provided value (v) as an uint64
+	n, err := strconv.ParseUint(v, 10, 64)
 	if err != nil {
 		return 0, err
 	}
