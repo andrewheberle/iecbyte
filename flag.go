@@ -100,11 +100,6 @@ func parse(v string, m uint64) (uint64, error) {
 		return 0, err
 	}
 
-	// reject negative values
-	if n < 0 {
-		return 0, fmt.Errorf("cannot be negative")
-	}
-
 	// return the value of the parsed int64 multiplied by the multiplier (m)
 	return n * m, nil
 }
