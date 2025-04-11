@@ -1,4 +1,8 @@
-# iecbyte [![Go Report Card](https://goreportcard.com/badge/github.com/andrewheberle/iecbyte?logo=go&style=flat-square)](https://goreportcard.com/report/github.com/andrewheberle/iecbyte) [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/andrewheberle/iecbyte)
+# iecbyte
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/andrewheberle/iecbyte?logo=go&style=flat-square)](https://goreportcard.com/report/github.com/andrewheberle/iecbyte)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/andrewheberle/iecbyte)
+[![codecov](https://codecov.io/gh/andrewheberle/iecbyte/graph/badge.svg?token=MNFPOWU3VV)](https://codecov.io/gh/andrewheberle/iecbyte)
 
 This package provides a `Flag` type that can be used as a custom flag for `flag` and `github.com/sp13/pflag` as it satisifes the `flag.Value` and `pflag.Value` interfaces.
 
